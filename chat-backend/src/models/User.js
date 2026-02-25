@@ -6,6 +6,8 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     avatar : { type: String },
     isOnline: { type: Boolean, default: false },
+    otp: { type: String },
+    otpExpire: { type: Date },
     }, 
     { 
         timestamps: true 

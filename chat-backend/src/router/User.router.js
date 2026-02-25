@@ -8,4 +8,5 @@ const userRouter = express.Router();
     userRouter.put("/update-profile", authMiddleware, updateUserProfile);
     userRouter.put("/change-avatar", authMiddleware, changeAvatar);
     userRouter.get("/profile", authMiddleware, getUserprofile);
+    
 export default userRouter;

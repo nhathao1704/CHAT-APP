@@ -28,6 +28,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <div className="login-right">
+        <h1>zely 👋</h1>
+        <p>Kết nối bạn bè, chia sẻ khoảnh khắc và trò chuyện mọi lúc mọi nơi.</p>
+      </div>
       <div className="login-box">
         <h2>Đăng Nhập</h2>
 
@@ -66,6 +70,9 @@ const Login = () => {
         <div className="login-footer">
           <p>
             Chưa có tài khoản? <a href="/register">Đăng ký tại đây</a>
+          </p>
+          <p>
+           <a href="/forgot-password">quên mật khẩu?</a>
           </p>
         </div>
       </div>

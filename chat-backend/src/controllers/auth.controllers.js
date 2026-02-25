@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { sendOTPEmail } from "../utils/sendEmail.js";
 const registerUser = async (req, res) => {
     try {
         console.log("BODY:", req.body);
@@ -69,20 +70,80 @@ const LoginUser = async (req, res) => {
 
 export { LoginUser };
 
-const forgetPassword = async (req, res) => {
+const Forgotpassword = async (req, res) => {
     try {
-        const { email, newPassword } = req.body;
+        const { email } = req.body;
+        console.log('Forgotpassword request received for:', email);
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(400).json({ message: 'Email không tồn tại' });
+        }
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpire = new Date(Date.now() + 5 * 60 * 1000); // OTP hết hạn sau 5 phút
+        user.otp = otp;
+        user.otpExpire = otpExpire;
+        await user.save();
+        try {
+            await sendOTPEmail(email, otp);
+            res.status(200).json({ message: 'OTP đã được gửi đến email của bạn' });
+        } catch (mailErr) {
+            console.error('Error sending OTP email:', mailErr);
+            // optionally clear otp fields if mailing fails
+            user.otp = null;
+            user.otpExpire = null;
+            await user.save();
+            return res.status(500).json({ message: 'Không thể gửi email OTP. Vui lòng thử lại sau.', error: mailErr.message });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+};
+export { Forgotpassword };
+
+const VerifyOtp = async (req, res) => {
+    try{
+        console.log('VerifyOtp request body:', req.body);
+        const { email, otp, newPassword } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Email không tồn tại' });
+        }
+        if (user.otp !== otp || user.otpExpire < new Date()) {
+            return res.status(400).json({ message: 'OTP không hợp lệ hoặc đã hết hạn' });
+        }
+        res.status(200).json({ message: 'OTP hợp lệ, bạn có thể đặt lại mật khẩu' });
+    } catch (error) {
+        console.error('VerifyOtp error:', error);
+        res.status(500).json({ message: 'Server error', error });
+    }
+};
+    
+ export { VerifyOtp };
+
+const ResetPassword = async (req, res) => {
+    try {
+        console.log('ResetPassword body:', req.body);
+        const { email, otp, newPassword } = req.body;
+        if (!email || !otp || !newPassword) {
+            return res.status(400).json({ message: 'Thiếu dữ liệu, kiểm tra lại' });
+        }
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Email không tồn tại' });
+        }
+        // optionally verify the otp matches and not expired - security check
+        if (user.otp !== otp || user.otpExpire < new Date()) {
+            return res.status(400).json({ message: 'OTP không hợp lệ hoặc đã hết hạn' });
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
         user.password = hashedPassword;
+        user.otp = null;
+        user.otpExpire = null;
         await user.save();
-        res.status(200).json({ message: 'Password reset successfully' });   
+        res.status(200).json({ message: 'Mật khẩu đã được đặt lại thành công' });
     } catch (error) {
+        console.error('ResetPassword error:', error);
         res.status(500).json({ message: 'Server error', error });
-    }};
-
-export { forgetPassword };
+    }   };
+export { ResetPassword };

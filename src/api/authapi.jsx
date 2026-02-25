@@ -43,4 +43,60 @@ const logoutUser = () => {
   localStorage.removeItem("token");
 };
 
-export { registerUser, loginUser, logoutUser };
+// quên mật khẩu gưi email để nhận OTP
+const forgotPassword = async (email) => {
+  const res = await fetch(`${BASE_URL}/auth/forgot-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    // include backend error detail if available
+    const errMsg = data.message || "Yêu cầu quên mật khẩu thất bại";
+    const detail = data.error ? ` (${data.error})` : "";
+    throw new Error(errMsg + detail);
+  }
+  return data;
+};
+
+// xác thực OTP
+const verifyOtp = async ({ email, otp }) => {
+  const res = await fetch(`${BASE_URL}/auth/verify-otp`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, otp }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    const errMsg = data.message || "Xác thực OTP thất bại";
+    const detail = data.error ? ` (${data.error})` : "";
+    throw new Error(errMsg + detail);
+  }
+  return data;
+};
+
+// đặt lại mật khẩu
+const resetPassword = async ({ email, otp, newPassword }) => {
+  const res = await fetch(`${BASE_URL}/auth/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, otp, newPassword }),    
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    const errMsg = data.message || "Đặt lại mật khẩu thất bại";
+    const detail = data.error ? ` (${data.error})` : "";
+    throw new Error(errMsg + detail);
+  }
+  return data;
+}
+  
+export { registerUser, loginUser, logoutUser, forgotPassword, verifyOtp, resetPassword };
