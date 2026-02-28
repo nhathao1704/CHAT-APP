@@ -1,7 +1,7 @@
-import {resetPassword} from "../api/authapi"
+import {resetPassword} from "../../api/authapi"
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import "../styles/index.css";
+import "../../styles/index.css";
 
 const ResetPassword = () => {
     const [confirm, setConfirm] = useState("");

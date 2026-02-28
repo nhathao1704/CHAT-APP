@@ -1,5 +1,6 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const getAllUsers = async (req, res) => {
     try {
@@ -13,7 +14,7 @@ export { getAllUsers };
 
 const changeAvatar = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = req.userId || req.user?.id; // use consistent id property
         const { avatar } = req.body;
         const user = await User.findByIdAndUpdate(userId, { avatar }, { new: true });
         if (!user) {
@@ -28,8 +29,8 @@ export { changeAvatar };
 
 const getUserprofile = async (req, res) => {
     try {
-        const UserId = req.user.id;
-        const user = await User.findById(UserId).select("-password");
+        const userId = req.userId || req.user?.id;
+        const user = await User.findById(userId).select("-password");
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -42,9 +43,9 @@ export { getUserprofile };
 
 const updateUserProfile = async (req, res) => {
     try {
-        const UserId = req.user.id;
+        const userId = req.userId || req.user?.id;
         const { username, email } = req.body;
-        const user = await User.findByIdAndUpdate(UserId, { username, email }, { new: true }).select("-password");
+        const user = await User.findByIdAndUpdate(userId, { username, email }, { new: true }).select("-password");
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -54,3 +55,12 @@ const updateUserProfile = async (req, res) => {
     }
 }   
 export { updateUserProfile };
+
+const isOnline = async (userId, status) => {
+    try {
+        await User.findByIdAndUpdate(userId, { isOnline: status }, { new: true });
+    } catch (error) {
+        console.error('Error updating online status:', error);
+    }
+}
+export { isOnline };

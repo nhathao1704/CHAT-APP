@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/connectionDB.js";
 import authrouter from "./router/auth.router.js";
+import userRouter from "./router/User.router.js";
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 
     // CORS configuration
     app.use(cors({
-      origin: "http://localhost:5173",
+      origin: true,
       credentials: true
     }));
 
@@ -25,6 +26,7 @@ const PORT = process.env.PORT || 3000;
 
     // Routes
     app.use("/api/auth", authrouter);
+    app.use("/api/user", userRouter);
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);

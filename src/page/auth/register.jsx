@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../api/authapi";
-import "../styles/register.css";
+import { registerUser } from "../../api/authapi";
+import "../../styles/register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({

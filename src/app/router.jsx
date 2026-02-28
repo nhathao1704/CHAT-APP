@@ -1,23 +1,15 @@
 import {createBrowserRouter} from 'react-router-dom';
 import App from './App';
-import Login from '../page/login.jsx';
-import Register from '../page/register.jsx';
-import ResetPassword from '../page/reset-password.jsx';
-import VerifyOtp from '../page/verify.jsx';
+import Login from '../page/auth/login.jsx';
+import Register from '../page/auth/register.jsx';
+import ResetPassword from '../page/auth/reset-password.jsx';
+import VerifyOtp from '../page/auth/verify.jsx';
 import AuthLayout from './authlayout.jsx';
-import ForgotPassword from '../page/forgot-password.jsx';
+import ForgotPassword from '../page/auth/forgot-password.jsx';
+import RequireAuth from './RequireAuth';
+import Home from '../page/home.jsx';
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />, 
-    children: [
-        {
-          index: true,
-           element: <h1>Welcome</h1>,
-        },
-    ],
-  },
    {
     element: <AuthLayout />,
     children: [
@@ -43,5 +35,19 @@ const router = createBrowserRouter([
       },
     ],
    },
+  {
+    path: "/",
+    element: (
+      <RequireAuth>
+        <App />
+      </RequireAuth>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+    ],
+  },
  ]);
 export default router;

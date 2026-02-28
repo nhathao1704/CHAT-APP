@@ -41,6 +41,7 @@ const loginUser = async (credentials) => {
 
 const logoutUser = () => {
   localStorage.removeItem("token");
+  window.location.href = "/login";
 };
 
 // quên mật khẩu gưi email để nhận OTP

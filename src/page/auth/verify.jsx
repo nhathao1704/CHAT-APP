@@ -1,7 +1,7 @@
-import {verifyOtp} from "../api/authapi"
+import {verifyOtp} from "../../api/authapi"
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import "../styles/index.css";
+import "../../styles/index.css";
 
 const VerifyOTP = () => {
     const [otp, setOtp] = useState("");

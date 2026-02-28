@@ -12,7 +12,7 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        // check for existing email and username
+        // kiem tra email va username da ton tai chua
         const existingEmail = await User.findOne({ email });
         if (existingEmail) {
             return res.status(400).json({ message: "Email already in use" });
@@ -21,9 +21,9 @@ const registerUser = async (req, res) => {
         if (existingUsername) {
             return res.status(400).json({ message: "Username already taken" });
         }
-
+        // ma hoa mat khau
         const hashedPassword = await bcrypt.hash(password, 10);
-
+        // tao user moi
         const user = await User.create({
             username,
             email,
@@ -48,14 +48,17 @@ const LoginUser = async (req, res) => {
         if(!email||!password){
             return res.status(400).json({ message: 'All fields are required' });
         }
+        // kiem tra email co ton tai khong
         const user =await User.findOne({email});
         if(!user){
             return res.status(400).json({ message: 'Invalid credentials' });
         }
+        // so sanh mat khau
         const ssmatkhau = await bcrypt.compare(password,user.password);
         if(!ssmatkhau){
             return res.status(400).json({ message: 'Invalid credentials' });
         }
+        // tao token
         const token = jwt.sign(
             { userId: user._id, email: user.email },
             process.env.JWT_SECRET,
@@ -103,7 +106,7 @@ export { Forgotpassword };
 const VerifyOtp = async (req, res) => {
     try{
         console.log('VerifyOtp request body:', req.body);
-        const { email, otp, newPassword } = req.body;
+        const { email, otp,  } = req.body;
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Email không tồn tại' });

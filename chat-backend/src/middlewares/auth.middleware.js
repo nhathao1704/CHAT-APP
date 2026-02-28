@@ -15,7 +15,9 @@ const authMiddleware = (req, res, next) => {
       return res.status(403).json({ message: "Token không hợp lệ" });
     }
 
-    req.userId = decoded.id; // 👈 gắn userId vào request
+    // attach userId from token (JWT encodes it as userId, not id)
+    req.userId = decoded.userId;
+    req.user = { id: decoded.userId };
     next();
   });
 };

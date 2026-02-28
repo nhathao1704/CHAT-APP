@@ -1,7 +1,7 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { forgotPassword } from "../api/authapi";
-import "../styles/index.css";
+import { forgotPassword } from "../../api/authapi";
+import "../../styles/index.css";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");

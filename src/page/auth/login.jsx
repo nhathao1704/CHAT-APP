@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { loginUser } from "../api/authapi";
-import "../styles/login.css";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { loginUser } from "../../api/authapi";
+import "../../styles/login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +19,8 @@ const Login = () => {
     try {
       const response = await loginUser({ email, password });
       console.log("Login successful:", response);
-      navigate("/"); // hoặc điều hướng đến trang chính
+      // redirect back to the page user tried to access
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
