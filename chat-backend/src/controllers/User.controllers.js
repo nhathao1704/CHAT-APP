@@ -64,3 +64,18 @@ const isOnline = async (userId, status) => {
     }
 }
 export { isOnline };
+const chooseAvatar = async (req, res) => {
+    try {
+        const userId = req.userId || req.user?.id; 
+        const { avatar } = req.body;
+        const user = await User.findByIdAndUpdate(userId, { avatar }, { new: true });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'Avatar updated successfully', avatar: user.avatar });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+        }
+    }
+ export { chooseAvatar };
+

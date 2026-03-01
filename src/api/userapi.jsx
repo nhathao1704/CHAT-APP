@@ -39,12 +39,12 @@ const updateUserProfile = async (profileData) => {
     return data;
 };
 
-const changeAvatar = async (avatarUrl) => {
+const chooseAvatar = async (avatarUrl) => {
     const token = localStorage.getItem("token");
     if (!token) {
         throw new Error("User is not authenticated");
     }
-    const res = await fetch(`${base_url}/user/avatar`, {
+    const res = await fetch(`${base_url}/user/choose-avatar`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -52,11 +52,11 @@ const changeAvatar = async (avatarUrl) => {
         },
         body: JSON.stringify({ avatar: avatarUrl }),
     });
-    const data = await res.json();  
+    const data = await res.json();
     if (!res.ok) {
-        throw new Error(data.message || "Failed to change avatar");
+        throw new Error(data.message || "Failed to choose avatar");
     }
     return data;
 };
 
-export { getUserProfile, updateUserProfile, changeAvatar };
+export { getUserProfile, updateUserProfile ,chooseAvatar};

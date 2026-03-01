@@ -12,7 +12,11 @@ const authMiddleware = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: "Token không hợp lệ" });
+      console.error('JWT verify error:', err);
+      if (err.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Token đã hết hạn' });
+      }
+      return res.status(403).json({ message: 'Token không hợp lệ' });
     }
 
     // attach userId from token (JWT encodes it as userId, not id)

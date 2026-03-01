@@ -8,6 +8,8 @@ import AuthLayout from './authlayout.jsx';
 import ForgotPassword from '../page/auth/forgot-password.jsx';
 import RequireAuth from './RequireAuth';
 import Home from '../page/home.jsx';
+import Settings from '../page/user/settings.jsx';
+import ChooseAvatar from '../page/user/choose-avatar.jsx'
 
 const router = createBrowserRouter([
    {
@@ -43,10 +45,22 @@ const router = createBrowserRouter([
       </RequireAuth>
     ),
     children: [
-      {
+       {
         index: true,
         element: <Home />,
       },
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "/settings",
+        element: <Settings/>,
+      },
+      {
+        path:"/choose-avatar",
+        element:<ChooseAvatar/>,
+      }
     ],
   },
  ]);

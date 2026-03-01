@@ -23,16 +23,15 @@ const registerUser = async (req, res) => {
         }
         // ma hoa mat khau
         const hashedPassword = await bcrypt.hash(password, 10);
-        // tao user moi
+        // tao user moi (avatar mặc định từ schema nếu không truyền)
         const user = await User.create({
             username,
             email,
             password: hashedPassword,
-            isOnline: false,
-            avatar: "",
+            isOnline: false
         });
 
-        res.status(201).json({ message: "User registered successfully" });
+        res.status(201).json({ message: "User registered successfully", userId: user._id, avatar: user.avatar });
 
     } catch (error) {
         console.error("REGISTER ERROR:", error);
@@ -150,3 +149,4 @@ const ResetPassword = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }   };
 export { ResetPassword };
+
