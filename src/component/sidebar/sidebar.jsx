@@ -6,9 +6,13 @@ const Sidebar = () => {
     <div className="sidebar">
      
       <SearchBar />
-      <ChatItem name="Chloe Adams" />
-      <ChatItem name="Amin Rokhead" />
-      <ChatItem name="Zaroena" />
+    <div>
+      <h1>ban be </h1>
+        <ChatItem name="Chloe Adams" />
+        <ChatItem name="Amin Rokhead" />
+        <ChatItem name="Zaroena" />
+    </div>
+      
     </div>
   );
 };

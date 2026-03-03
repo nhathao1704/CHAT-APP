@@ -101,5 +101,6 @@ const resetPassword = async ({ email, otp, newPassword }) => {
   }
   return data;
 }
+
   
 export { registerUser, loginUser, logoutUser, forgotPassword, verifyOtp, resetPassword };

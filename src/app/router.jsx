@@ -10,7 +10,7 @@ import RequireAuth from './RequireAuth';
 import Home from '../page/home.jsx';
 import Settings from '../page/user/settings.jsx';
 import ChooseAvatar from '../page/user/choose-avatar.jsx'
-
+import ChangePassword from '../page/user/change-password.jsx';
 const router = createBrowserRouter([
    {
     element: <AuthLayout />,
@@ -60,7 +60,11 @@ const router = createBrowserRouter([
       {
         path:"/choose-avatar",
         element:<ChooseAvatar/>,
-      }
+      },
+      {
+        path:"/change-password",
+        element:<ChangePassword/>,
+      },
     ],
   },
  ]);

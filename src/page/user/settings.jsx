@@ -14,7 +14,7 @@ const Settings = () => {
         Xem thông tin cá nhân
       </button>
 
-      <button onClick={() => navigate("/forgot-password")}>
+      <button onClick={() => navigate("/change-password")}>
         Đổi mật khẩu
       </button>
 
