@@ -1,9 +1,9 @@
-const ChatHeader = ({ name }) => {
+const ChatHeader = ({ name, avatar }) => {
    return (
     <div className="chat-header">
       <div className="chat-header-info">
         <img
-          src="https://i.pravatar.c"
+          src={avatar || "https://i.pravatar.cc/40"}
           alt="avatar"
           className="chat-header-avatar"
         />

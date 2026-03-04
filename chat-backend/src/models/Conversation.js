@@ -1,11 +1,20 @@
 import mongoose from "mongoose";
 
-const covnersationSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    members: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    },
-    { 
-        timestamps: true 
+const conversationSchema = new mongoose.Schema(
+  {
+    name: { type: String }, // group chat mới cần
+    isGroup: { type: Boolean, default: false },
+
+    members: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    ],
+
+    lastMessage: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message"
     }
+  },
+  { timestamps: true }
 );
-export default mongoose.model('Conversation', covnersationSchema);
+
+export default mongoose.model("Conversation", conversationSchema);

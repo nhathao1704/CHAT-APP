@@ -11,6 +11,7 @@ import Home from '../page/home.jsx';
 import Settings from '../page/user/settings.jsx';
 import ChooseAvatar from '../page/user/choose-avatar.jsx'
 import ChangePassword from '../page/user/change-password.jsx';
+import Notifications from '../page/notifications.jsx';
 const router = createBrowserRouter([
    {
     element: <AuthLayout />,
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path:"/change-password",
         element:<ChangePassword/>,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
       },
     ],
   },

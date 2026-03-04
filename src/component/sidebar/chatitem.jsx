@@ -1,9 +1,13 @@
-const ChatItem = ({ name, active }) => {
+const ChatItem = ({ name, avatar, active, onClick }) => {
    return (
-    <div className={`chat-item ${active ? "active" : ""}`}>
+    <div
+      className={`chat-item ${active ? "active" : ""}`}
+      onClick={onClick}
+
+    >
       <img
-        src="https://i.pravatar.cc/40"
-        alt="avatar"
+        src={avatar || "https://i.pravatar.cc/40"}
+        alt={name || "avatar"}
         className="chat-avatar"
       />
       <span>{name}</span>

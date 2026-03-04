@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-right">
-        <h1>zely 👋</h1>
+        <h1>Zola 👋</h1>
         <p>Kết nối bạn bè, chia sẻ khoảnh khắc và trò chuyện mọi lúc mọi nơi.</p>
       </div>
       <div className="login-box">

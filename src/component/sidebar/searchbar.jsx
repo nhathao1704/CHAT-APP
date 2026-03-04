@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { searchUsers } from "../../api/userapi";
+import { sendFriendRequest } from "../../api/friend";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState({}); // track sending state by user id
+  const [status, setStatus] = useState(null);
 
   // debounce
   useEffect(() => {
@@ -38,6 +41,20 @@ const SearchBar = () => {
     }
   };
 
+  const handleAddFriend = async (userId) => {
+    setSending((s) => ({ ...s, [userId]: true }));
+    try {
+      const res = await sendFriendRequest(userId);
+      setStatus(res.message);
+      // you might also want to clear results or update friends elsewhere
+    } catch (e) {
+      console.error(e);
+      setStatus("Gửi yêu cầu thất bại");
+    } finally {
+      setSending((s) => ({ ...s, [userId]: false }));
+    }
+  };
+
   return (
     <div className="search-box" style={{ position: "relative" }}>
       <input
@@ -46,6 +63,8 @@ const SearchBar = () => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
+
+      {status && <p className="status">{status}</p>}
 
       {loading && <p>Searching...</p>}
 
@@ -80,11 +99,6 @@ const SearchBar = () => {
                 }}
                 onMouseOver={(e) => (e.currentTarget.style.background = "#f5f5f5")}
                 onMouseOut={(e) => (e.currentTarget.style.background = "transparent")}
-                onClick={() => {
-                  console.log("Selected:", user);
-                  setKeyword("");
-                  setUsers([]);
-                }}
               >
                 <img
                   src={user.avatar}
@@ -94,6 +108,13 @@ const SearchBar = () => {
                   style={{ borderRadius: "50%" }}
                 />
                 <span>{user.username}</span>
+                <button
+                  disabled={sending[user._id]}
+                  onClick={() => handleAddFriend(user._id)}
+                  style={{ marginLeft: "auto" }}
+                >
+                  {sending[user._id] ? "Đang gửi…" : "Kết bạn"}
+                </button>
               </div>
             ))
           ) : (
@@ -106,5 +127,6 @@ const SearchBar = () => {
     </div>
   );
 };
+
 
 export default SearchBar;

@@ -17,16 +17,16 @@ const FriendSchema = new mongoose.Schema(
 );
 
 // Đảm bảo userA luôn nhỏ hơn userB để tránh trùng
-FriendSchema.pre("save", function (next) {
+FriendSchema.pre("save", function () {
   const a = this.userA.toString();
   const b = this.userB.toString();
 
   if (a > b) {
-    this.userA = new mongoose.Types.ObjectId(b);
-    this.userB = new mongoose.Types.ObjectId(a);
+    const temp = this.userA;
+    this.userA = this.userB;
+    this.userB = temp;
   }
 
-  next();
 });
 
 FriendSchema.index({ userA: 1, userB: 1 }, { unique: true });
