@@ -1,4 +1,4 @@
-const BASE_URL = "https://chat-app-xot2.onrender.com";
+const BASE_URL = "https://chat-app-xot2.onrender.com/api";
 
 export const createConversation = async (receiverId) => {
   const token = localStorage.getItem("token");
