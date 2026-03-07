@@ -33,7 +33,7 @@ const loginUser = async (credentials) => {
     throw new Error(data.message || "Đăng nhập thất bại");
   }
 
-  // ✅ lưu token và thông tin người dùng khi login
+  // lưu token và thông tin người dùng khi login
   localStorage.setItem("token", data.token);
   if (data.avatar) localStorage.setItem("avatar", data.avatar);
   if (data.userId) localStorage.setItem("userId", data.userId);

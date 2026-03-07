@@ -9,17 +9,17 @@ const registerUser = async (req, res) => {
         const { username, email, password } = req.body;
 
         if (!username || !email || !password) {
-            return res.status(400).json({ message: "All fields are required" });
+            return res.status(400).json({ message: "nhập đủ thông tin" });
         }
 
         // kiem tra email va username da ton tai chua
         const existingEmail = await User.findOne({ email });
         if (existingEmail) {
-            return res.status(400).json({ message: "Email already in use" });
+            return res.status(400).json({ message: "Email này đã có" });
         }
         const existingUsername = await User.findOne({ username });
         if (existingUsername) {
-            return res.status(400).json({ message: "Username already taken" });
+            return res.status(400).json({ message: "Username có người dùng rồi" });
         }
         // ma hoa mat khau
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -31,7 +31,7 @@ const registerUser = async (req, res) => {
             isOnline: false
         });
 
-        res.status(201).json({ message: "User registered successfully", userId: user._id, avatar: user.avatar });
+        res.status(201).json({ message: "đăng ký thành công", userId: user._id, avatar: user.avatar });
 
     } catch (error) {
         console.error("REGISTER ERROR:", error);
@@ -45,23 +45,23 @@ const LoginUser = async (req, res) => {
     try{
         const{ email,password }= req.body;
         if(!email||!password){
-            return res.status(400).json({ message: 'All fields are required' });
+            return res.status(400).json({ message: 'nhập đủ thông tin' });
         }
         // kiem tra email co ton tai khong
         const user =await User.findOne({email});
         if(!user){
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'email không tồn tại' });
         }
         // so sanh mat khau
         const ssmatkhau = await bcrypt.compare(password,user.password);
         if(!ssmatkhau){
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'mật khẩu không đúng' });
         }
         // tao token
         const token = jwt.sign(
             { userId: user._id, email: user.email },
             process.env.JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '7d' }
         );
         res.status(200).json({ token, userId: user._id, username: user.username, avatar: user.avatar });
     }

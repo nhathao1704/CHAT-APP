@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MessageItem from "./messageitem";
 import { getMessages } from "../../api/messageapi";
 import socket from "../../socket/socket";
+import "../../styles/index.css"
 
 const MessageList = ({ conversationId }) => {
-  const [messages, setMessages] = useState([]);
 
-  // 🔥 Lấy userId trực tiếp
+  const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
   const currentUserId = localStorage.getItem("userId");
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (!conversationId) return;
@@ -37,22 +43,31 @@ const MessageList = ({ conversationId }) => {
     return () => socket.off("receiveMessage", handleReceive);
   }, [conversationId]);
 
-    return (
-      <div className="chat-messages">
-        {messages.map((msg) => {
-          const senderId = msg.sender?._id?.toString();
-          const isOwnMessage = senderId === currentUserId;
+  // 🔥 scroll khi có message mới
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
-          return (
-            <MessageItem
-              key={msg._id}
-              text={msg.content}
-              type={isOwnMessage ? "right" : "left"}
-            />
-          );
-        })}
-      </div>
-    );
+  return (
+    <div className="chat-messages">
+
+      {messages.map((msg) => {
+        const senderId = msg.sender?._id?.toString();
+        const isOwnMessage = senderId === currentUserId;
+
+        return (
+          <MessageItem
+            key={msg._id}
+            text={msg.content}
+            type={isOwnMessage ? "right" : "left"}
+          />
+        );
+      })}
+
+      <div ref={messagesEndRef} />
+
+    </div>
+  );
 };
 
 export default MessageList;

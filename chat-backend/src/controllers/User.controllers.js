@@ -18,7 +18,7 @@ const getUserprofile = async (req, res) => {
         const userId = req.userId || req.user?.id;
         const user = await User.findById(userId).select("-password");
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User không tìm thấy' });
         }
         res.status(200).json(user);
     } catch (error) {
@@ -33,7 +33,7 @@ const updateUserProfile = async (req, res) => {
         const { username, email } = req.body;
         const user = await User.findByIdAndUpdate(userId, { username, email }, { new: true }).select("-password");
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User không tìm thấy' });
         }
         res.status(200).json(user);
     } catch (error) {
@@ -58,7 +58,7 @@ const chooseAvatar = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.status(200).json({ message: 'Avatar updated successfully', avatar: user.avatar });
+        res.status(200).json({ message: 'Avatar đã được cập nhật', avatar: user.avatar });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
         }
@@ -79,14 +79,14 @@ const chooseAvatar = async (req, res) => {
        // so sanh mk
        const ssmk = await bcrypt.compare (oldPassword, user.password);
        if(!ssmk){
-        return res.status(400).json({message:"mk khong dung voi mk cu"})
+        return res.status(400).json({message:"mật khẩu cũ không đúng"})
        }
        // hash mk moi
         const salt = await bcrypt.genSalt(10);
          const hashedPassword = await bcrypt.hash(newPassword, salt);
          user.password = hashedPassword;
          await user.save();
-         res.status(200).json({message:"doi mk thanh cong"})
+         res.status(200).json({message:"đổi mật khẩu thành công"})
 
     }
     catch(error)

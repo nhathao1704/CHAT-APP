@@ -50,7 +50,7 @@ const PORT = process.env.PORT || 3000;
       },
     });
 
-    // 🔥 USER ONLINE MAP
+    // USER ONLINE MAP
     const onlineUsers = new Map(); // userId -> socketId
 
     io.on("connection", (socket) => {

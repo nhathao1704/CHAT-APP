@@ -3,7 +3,7 @@ const BASE_URL = "http://localhost:3000/api";
 const getToken = () => localStorage.getItem("token");
 
 
-// 📞 Start Call
+// Start Call
 export const startCall = async (data) => {
   const res = await fetch(`${BASE_URL}/call/start`, {
     method: "POST",
@@ -22,7 +22,7 @@ export const startCall = async (data) => {
 };
 
 
-// ✅ Accept Call
+// Accept Call
 export const acceptCall = async (callId) => {
   const res = await fetch(`${BASE_URL}/call/accept/${callId}`, {
     method: "PUT",
@@ -39,7 +39,7 @@ export const acceptCall = async (callId) => {
 };
 
 
-// ❌ Reject Call
+// Reject Call
 export const rejectCall = async (callId) => {
   const res = await fetch(`${BASE_URL}/call/reject/${callId}`, {
     method: "PUT",
@@ -56,7 +56,7 @@ export const rejectCall = async (callId) => {
 };
 
 
-// 🔴 End Call
+// End Call
 export const endCall = async (callId) => {
   const res = await fetch(`${BASE_URL}/call/end/${callId}`, {
     method: "PUT",
@@ -73,7 +73,7 @@ export const endCall = async (callId) => {
 };
 
 
-// 📵 Missed Call
+// Missed Call
 export const markMissedCall = async (callId) => {
   const res = await fetch(`${BASE_URL}/call/missed/${callId}`, {
     method: "PUT",
@@ -90,7 +90,7 @@ export const markMissedCall = async (callId) => {
 };
 
 
-// 📜 Call History
+// Call History
 export const getCallHistory = async (conversationId) => {
   const res = await fetch(
     `${BASE_URL}/call/history/${conversationId}`,

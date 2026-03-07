@@ -18,10 +18,6 @@ const Settings = () => {
         Đổi mật khẩu
       </button>
 
-      <button onClick={() => navigate("/choose-avatar")}>
-        Đổi avatar
-      </button>
-
       <button 
         className="logout-btn"
         onClick={() => {

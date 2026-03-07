@@ -20,25 +20,30 @@ const getUserProfile = async () => {
 };
 
 const updateUserProfile = async (profileData) => {
+
     const token = localStorage.getItem("token");
+
     if (!token) {
         throw new Error("User is not authenticated");
     }
-    const res = await fetch(`${base_url}/user/profile`, {
+
+    const res = await fetch(`${base_url}/user/update-profile`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-        },  
+        },
         body: JSON.stringify(profileData),
     });
+
     const data = await res.json();
+
     if (!res.ok) {
         throw new Error(data.message || "Failed to update user profile");
     }
+
     return data;
 };
-
 const chooseAvatar = async (avatarUrl) => {
     const token = localStorage.getItem("token");
     if (!token) {

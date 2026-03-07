@@ -7,7 +7,7 @@ import { getFriendRequests } from "../api/friend";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || "https://i.pravatar.cc/40");
+  const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || "https://i.imgur.com/WxNkK7J.png");
   const [notifCount, setNotifCount] = useState(0);
 
   // load friend-request count and optionally poll

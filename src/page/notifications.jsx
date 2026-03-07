@@ -1,6 +1,6 @@
 import React from "react";
 import FriendRequests from "../component/sidebar/FriendRequests";
-import "../styles/home.css"; // reuse some layout styles
+
 
 const Notifications = () => {
   return (
