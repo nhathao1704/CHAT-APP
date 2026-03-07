@@ -89,14 +89,14 @@ export default function FriendRequests({ onAction }) {
           }}
         >
           <img
-            src={r.from.avatar || "https://i.pravatar.cc/30"}
-            alt={r.from.username}
+            src={r?.from?.avatar || "https://i.pravatar.cc/30"}
+            alt={r?.from?.username}
             width="30"
             height="30"
             style={{ borderRadius: "50%" }}
           />
 
-          <span>{r.from.username}</span>
+          <span>{r?.from?.username}</span>
 
           <button
             type="button"

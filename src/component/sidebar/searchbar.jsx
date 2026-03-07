@@ -101,8 +101,8 @@ const SearchBar = () => {
                 onMouseOut={(e) => (e.currentTarget.style.background = "transparent")}
               >
                 <img
-                  src={user.avatar}
-                  alt={user.username}
+                  src={user?.avatar || "https://i.pravatar.cc/35"}
+                  alt={user?.username}
                   width="35"
                   height="35"
                   style={{ borderRadius: "50%" }}
