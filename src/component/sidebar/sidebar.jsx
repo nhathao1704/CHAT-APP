@@ -36,15 +36,19 @@ const Sidebar = ({ onSelect, selected }) => {
         {!loading && !error && friends.length === 0 && (
           <p>Chưa có bạn bè.</p>
         )}
-        {!loading && !error && friends.map((f) => (
-          <ChatItem
-            key={f._id}
-            name={f.name || f.username ||  ""}
-            avatar={f.avatar}
-            onClick={() => onSelect && onSelect(f)}
-            active={selected && selected._id === f._id}
-          />
-        ))}
+       {!loading && !error &&
+          friends
+            ?.filter(Boolean)
+            ?.map((f) => (
+              <ChatItem
+                key={f?._id}
+                name={f?.name || f?.username || ""}
+                avatar={f?.avatar || "https://i.pravatar.cc/40"}
+                onClick={() => onSelect && onSelect(f)}
+                active={selected && selected?._id === f?._id}
+              />
+            ))
+        }
       </div>
     </div>
   );
