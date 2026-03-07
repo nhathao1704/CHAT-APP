@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv": "^17.3.1",
     "mongoose": "^9.1.5",
     "nodemailer": "^8.0.1",
     "react": "^19.2.0",
