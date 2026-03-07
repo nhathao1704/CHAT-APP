@@ -1,4 +1,4 @@
-const base_url = "http://localhost:3000/api";
+const base_url = "https://chat-app-xot2.onrender.com";
 
 const getUserProfile = async () => {
   const token = localStorage.getItem("token");

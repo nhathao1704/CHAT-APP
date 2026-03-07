@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://chat-app-xot2.onrender.com";
 
 const registerUser = async (userData) => {
   const res = await fetch(`${BASE_URL}/auth/register`, {

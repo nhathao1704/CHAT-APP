@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://chat-app-xot2.onrender.com";
 
 export const sendFriendRequest = async (to) => {
   const token = localStorage.getItem("token");

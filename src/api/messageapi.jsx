@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://chat-app-xot2.onrender.com";
 
 /**
  * Lấy toàn bộ tin nhắn theo conversationId
