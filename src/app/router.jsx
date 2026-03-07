@@ -12,6 +12,8 @@ import Settings from '../page/user/settings.jsx';
 import ChooseAvatar from '../page/user/choose-avatar.jsx'
 import ChangePassword from '../page/user/change-password.jsx';
 import Notifications from '../page/notifications.jsx';
+import CallPage from '../page/callpage.jsx';
+import IncomingCallPopup  from '../component/call/IncomingCallPopup.jsx'
 const router = createBrowserRouter([
    {
     element: <AuthLayout />,
@@ -70,6 +72,15 @@ const router = createBrowserRouter([
         path: "/notifications",
         element: <Notifications />,
       },
+      {
+        path: "/callpage",
+        element:<CallPage/>,
+      },
+      {
+        path:"/IncomingCallPopup",
+        elemet:<IncomingCallPopup />,
+      }
+      
     ],
   },
  ]);

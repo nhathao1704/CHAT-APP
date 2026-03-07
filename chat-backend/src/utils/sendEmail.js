@@ -18,7 +18,7 @@ export const sendOTPEmail = async (email, otp) => {
 
   try {
     await transporter.sendMail({
-      from: `"Zely Support" <${process.env.EMAIL_USER}>`,
+      from: `"Zola Support" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Mã OTP đặt lại mật khẩu",
       html: `

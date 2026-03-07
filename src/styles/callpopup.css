@@ -1,0 +1,158 @@
+.incoming-call-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+.incoming-call-popup {
+  background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+  border-radius: 20px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+.caller-avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #00d09c;
+  animation: pulse 1.5s infinite;
+}
+
+.caller-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.call-info h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.call-status {
+  color: #00d09c;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.call-actions {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.reject-btn,
+.accept-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.reject-btn {
+  background: #ff4757;
+  color: white;
+}
+
+.reject-btn:hover {
+  background: #ff6b7a;
+  transform: scale(1.1);
+}
+
+.accept-btn {
+  background: #00d09c;
+  color: white;
+}
+
+.accept-btn:hover {
+  background: #00e6b0;
+  transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 208, 156, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(0, 208, 156, 0);
+  }
+}
+
+/* Call page styles */
+.call-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  color: white;
+}
+
+.call-page h2 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.call-page .end-call-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #ff4757;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-top: 30px;
+}
+
+.call-page .end-call-btn:hover {
+  background: #ff6b7a;
+  transform: scale(1.1);
+}
+

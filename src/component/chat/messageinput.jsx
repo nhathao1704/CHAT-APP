@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
-import socket from "../../socket"; // file socket.js của bạn
+import socket from "../../socket/socket"; 
 
 const MessageInput = ({ conversationId, userId }) => {
   const [message, setMessage] = useState("");

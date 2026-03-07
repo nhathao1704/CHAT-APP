@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MessageItem from "./messageitem";
 import { getMessages } from "../../api/messageapi";
-import socket from "../../socket";
+import socket from "../../socket/socket";
 
 const MessageList = ({ conversationId }) => {
   const [messages, setMessages] = useState([]);
@@ -37,21 +37,22 @@ const MessageList = ({ conversationId }) => {
     return () => socket.off("receiveMessage", handleReceive);
   }, [conversationId]);
 
-  return (
-    <div className="chat-messages">
-      {messages.map((msg) => (
-        <MessageItem
-          key={msg._id}
-          text={msg.content}
-          type={
-            msg.sender.toString() === currentUserId
-              ? "right"
-              : "left"
-          }
-        />
-      ))}
-    </div>
-  );
+    return (
+      <div className="chat-messages">
+        {messages.map((msg) => {
+          const senderId = msg.sender?._id?.toString();
+          const isOwnMessage = senderId === currentUserId;
+
+          return (
+            <MessageItem
+              key={msg._id}
+              text={msg.content}
+              type={isOwnMessage ? "right" : "left"}
+            />
+          );
+        })}
+      </div>
+    );
 };
 
 export default MessageList;

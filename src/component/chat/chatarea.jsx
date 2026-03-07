@@ -14,7 +14,7 @@ const ChatArea = ({ friend }) => {
 
   return (
     <div className="chat-area">
-      <ChatHeader name={friend.username || friend.name} avatar={friend.avatar} />
+      <ChatHeader name={friend.username || friend.name} avatar={friend.avatar} friend={friend} />
        <MessageList
           conversationId={friend.conversationId}
           currentUserId={userId}

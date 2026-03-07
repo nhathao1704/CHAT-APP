@@ -62,8 +62,8 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-left">
-        <div className="logo-box">MB</div>
-        <span className="brand">Your Brand</span>
+        <div className="logo-box">ZL</div>
+        <span className="brand">ZOLA</span>
       </div>
 
       <div className="header-right">
