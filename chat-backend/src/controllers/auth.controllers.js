@@ -103,23 +103,25 @@ const Forgotpassword = async (req, res) => {
 export { Forgotpassword };
 
 const VerifyOtp = async (req, res) => {
-    try{
-        console.log('VerifyOtp request body:', req.body);
-        const { email, otp,  } = req.body;
+    try {
+        const { email, otp } = req.body;
+
         const user = await User.findOne({ email });
+
         if (!user) {
-            return res.status(400).json({ message: 'Email không tồn tại' });
+        return res.status(400).json({ message: 'Email không tồn tại' });
         }
-        if (user.otp !== otp || user.otpExpire < new Date()) {
-            return res.status(400).json({ message: 'OTP không hợp lệ hoặc đã hết hạn' });
+
+        if (String(user.otp) !== String(otp) || user.otpExpire < new Date()) {
+        return res.status(400).json({ message: 'OTP không hợp lệ hoặc đã hết hạn' });
         }
-        res.status(200).json({ message: 'OTP hợp lệ, bạn có thể đặt lại mật khẩu' });
+
+        res.status(200).json({ message: 'OTP hợp lệ' });
+
     } catch (error) {
-        console.error('VerifyOtp error:', error);
         res.status(500).json({ message: 'Server error', error });
     }
-};
-    
+    };
  export { VerifyOtp };
 
 
