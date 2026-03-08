@@ -74,7 +74,7 @@ const changePassword = async(passwordData)=>{
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ passwordData }),
+       body: JSON.stringify(passwordData),
     });
 
             

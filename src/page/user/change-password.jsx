@@ -4,11 +4,11 @@ import { useState } from "react";
 import "../../styles/index.css"
 const ChangePassword = () => {
     const navigate = useNavigate();
-    const[formData, setFormData] = useState({
-        oldpassword:"",
-        newpassword:"",
-        confirmpassword:"",
-    })
+    const [formData, setFormData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+    });
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const handleChange = (e) => {
@@ -18,7 +18,7 @@ const ChangePassword = () => {
          });
      };
      const handleSubmit = async (e)=>{
-        e.preventDefaut();
+        e.preventDefault();
         setError("");
         if (formData.newpassword !== formData.confirmpassword){
             setError("mat khau khong khop");
@@ -26,9 +26,9 @@ const ChangePassword = () => {
         }
         try{
             await changePassword({
-                oldpassword: FormData.oldpassword,
-                newpassword: FormData.newpassword,
-            })
+                oldPassword: formData.oldPassword,
+                newPassword: formData.newPassword,
+                });
             setMessage("Đổi mật khẩu thành công!");
 
             setFormData({
