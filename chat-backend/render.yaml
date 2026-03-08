@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: chat-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        # Add your database URL in Render dashboard or here
+        sync: false
+      - key: JWT_SECRET
+        # Add your JWT secret in Render dashboard
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: RESEND_API_KEY
+        # Add your Resend API key in Render dashboard
+        sync: false
+
