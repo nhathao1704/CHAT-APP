@@ -25,15 +25,20 @@ const PORT = process.env.PORT || 3000;
     console.log("Database connected");
 
     app.use(
-      cors({
-        origin: true,
-        credentials: true,
-      })
-    );
-
-    app.use(express.json());
+        cors({
+          origin: [
+            "http://localhost:5173",
+            "https://chat-app-orcin-mu-59.vercel.app"
+          ],
+          credentials: true,
+          methods: ["GET","POST","PUT","DELETE"],
+          allowedHeaders: ["Content-Type","Authorization"]
+        })
+      );
+      app.use(express.json());
 
     // ROUTES
+    app.options("*", cors());
     app.use("/api/auth", authrouter);
     app.use("/api/user", userRouter);
     app.use("/api/friend", friendRouter);
@@ -45,11 +50,14 @@ const PORT = process.env.PORT || 3000;
 
     const io = new Server(server, {
       cors: {
-        origin: true,
-        methods: ["GET", "POST"],
+        origin: [
+          "http://localhost:5173",
+          "https://chat-app-orcin-mu-59.vercel.app"
+        ],
+        methods: ["GET","POST"],
+        credentials: true
       },
     });
-
     // USER ONLINE MAP
     const onlineUsers = new Map(); // userId -> socketId
 
