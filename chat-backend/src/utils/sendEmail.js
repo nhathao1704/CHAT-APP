@@ -19,6 +19,12 @@ export const sendOTPEmail = async (email, otp) => {
       greetingTimeout: 10000,
       socketTimeout: 10000,
   });
+ try {
+  await transporter.verify();
+      console.log("SMTP connected");
+    } catch (error) {
+      console.error("SMTP connection error:", error);
+    }
 
   try {
     await transporter.sendMail({
