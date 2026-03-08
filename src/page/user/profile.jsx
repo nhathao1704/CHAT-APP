@@ -8,7 +8,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [editData, setEditData] = useState({
-    name: "",
+    username: "",
     email: "",
     avatar: ""
   });
@@ -19,7 +19,7 @@ const Profile = () => {
         const data = await getUserProfile();
 
         setEditData({
-          name: data.username || "",
+          username: data.username || "",
           email: data.email || "",
           avatar: data.avatar || ""
         });
@@ -69,9 +69,9 @@ const Profile = () => {
 
         <input
           type="text"
-          name="name"
+          name="username"
           placeholder="Name"
-          value={editData.name}
+          value={editData.username}
           onChange={handleChange}
         />
 
