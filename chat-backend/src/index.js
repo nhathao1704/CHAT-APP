@@ -26,19 +26,13 @@ const PORT = process.env.PORT || 3000;
 
     app.use(
         cors({
-          origin: [
-            "http://localhost:5173",
-            "https://chat-app-orcin-mu-59.vercel.app"
-          ],
+          origin: true,
           credentials: true,
-          methods: ["GET","POST","PUT","DELETE"],
-          allowedHeaders: ["Content-Type","Authorization"]
         })
       );
       app.use(express.json());
 
     // ROUTES
-    app.options("*", cors());
     app.use("/api/auth", authrouter);
     app.use("/api/user", userRouter);
     app.use("/api/friend", friendRouter);
@@ -50,12 +44,8 @@ const PORT = process.env.PORT || 3000;
 
     const io = new Server(server, {
       cors: {
-        origin: [
-          "http://localhost:5173",
-          "https://chat-app-orcin-mu-59.vercel.app"
-        ],
-        methods: ["GET","POST"],
-        credentials: true
+         origin: true,
+        credentials: true,
       },
     });
     // USER ONLINE MAP
