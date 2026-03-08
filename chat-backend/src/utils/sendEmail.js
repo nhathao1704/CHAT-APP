@@ -1,46 +1,36 @@
-import nodemailer from 'nodemailer';
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOTPEmail = async (email, otp) => {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    const msg = "Missing email credentials. Set EMAIL_USER and EMAIL_PASS in your environment.";
-    console.error(msg);
-    throw new Error(msg);
-  }
+  try {
 
-  const transporter = nodemailer.createTransport({
-     host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-     connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
-  });
- try {
-  await transporter.verify();
-      console.log("SMTP connected");
-    } catch (error) {
-      console.error("SMTP connection error:", error);
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("Missing RESEND_API_KEY in environment variables");
     }
 
-  try {
-    await transporter.sendMail({
-      from: `"Zola Support" <${process.env.EMAIL_USER}>`,
+    const response = await resend.emails.send({
+      from: "Zola Support <onboarding@resend.dev>",
       to: email,
       subject: "Mã OTP đặt lại mật khẩu",
       html: `
-        <h2>Mã OTP của bạn là:</h2>
-        <h1>${otp}</h1>
-        <p>Mã có hiệu lực trong 5 phút.</p>
+        <div style="font-family: Arial; padding:20px">
+          <h2>Mã OTP của bạn</h2>
+          <h1 style="color:#4CAF50">${otp}</h1>
+          <p>Mã này có hiệu lực trong <b>5 phút</b>.</p>
+          <p>Nếu bạn không yêu cầu đổi mật khẩu, hãy bỏ qua email này.</p>
+        </div>
       `,
     });
-    console.log(`OTP email sent to ${email}`);
-  } catch (err) {
-    console.error("Failed to send OTP email:", err);
-    // rethrow so the controller can respond with 500
-    throw err;
+
+    console.log("Email sent:", response);
+
+  } catch (error) {
+
+    console.error("Resend email error:", error);
+
+    throw new Error(
+      "Không thể gửi email OTP. Vui lòng thử lại sau."
+    );
   }
 };
